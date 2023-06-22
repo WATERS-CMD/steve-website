@@ -38,7 +38,7 @@ else:
 
 # PostgreSQL connection settings
 db_host = "localhost"
-db_name = config.DATABASE
-db_user = config.POSTGRES_USER
-db_password = config.POSTGRES_PASSWORD
-db_uri = config.SQLALCHEMY_DATABASE_URI
+db_name = "steve"
+db_user = "postgres"
+db_password = "12345"
+db_uri = "postgresql://postgres:12345@localhost:5432/steve"

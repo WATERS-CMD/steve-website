@@ -1,35 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Posts</title>
-    <style>
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .post {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .post .actions {
-            margin-top: 10px;
-        }
-
-        .post .actions button {
-            margin-right: 10px;
-        }
-    </style>
-</head>
-<body>
+{%extends "base.html"%}
+{%block content%}
     <div class="container">
         <h1>Posts</h1>
         <div id="postsContainer"></div>
     </div>
 
     <script src="main.js"></script>
-</body>
-</html>
+{%endblock%}

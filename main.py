@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
-from configs import *
+from configs import configs
 import psycopg2
 import os
 import matplotlib.pyplot as plt
@@ -57,21 +57,7 @@ def fetch_search_visibility():
 
     return search_engines, visibility_counts
 
-@app.route('/admin')
-def admin_dashboard():
-    # Visitor count
-    cursor.execute("SELECT COUNT(*) FROM visitors")
-    visitor_count = cursor.fetchone()[0]
 
-    # Fetch posts
-    cursor.execute("SELECT * FROM posts")
-    posts = cursor.fetchall()
-
-    # Google search visibility pie chart
-    search_engines, visibility_counts = fetch_search_visibility()
-
-    # Render admin dashboard template
-    return render_template('admin_dashboard.html', visitor_count=visitor_count, posts=posts, search_engines=search_engines, visibility_counts=visibility_counts)
 
 
 
@@ -85,9 +71,20 @@ def listing():
 @app.route('/posts')
 def get_posts():
     conn = psycopg2.connect(
-        host=db_host, dbname=db_name, user=db_user, password=db_password
+        host=configs.db_host, dbname=configs.db_name, user=configs.db_user, password=configs.db_password
     )
     cursor = conn.cursor()
+    create_script='''
+            CREATE TABLE IF NOT EXISTS posts(
+                id SERIAL PRIMARY KEY,
+                username VARCHAR (50),
+                image TEXT,
+                description TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                is_admin BOOLEAN DEFAULT FALSE
+
+            )
+    '''
 
     select_query = "SELECT * FROM posts"
     cursor.execute(select_query)
@@ -146,6 +143,26 @@ def delete_post(post_id):
 
     return {'message': 'Post deleted successfully'}
 
+@app.route('/admin')
+def admin_dashboard():
+    conn = psycopg2.connect(
+        host=configs.db_host, dbname=configs.db_name, user=configs.db_user, password=configs.db_password
+    )
+    cursor = conn.cursor()
+    # Visitor count
+    # cursor.execute("SELECT COUNT(*) FROM visitors")
+    # visitor_count = cursor.fetchone()[0]
+
+    # Fetch posts
+    cursor.execute("SELECT * FROM posts")
+    posts = cursor.fetchall()
+
+    # Google search visibility pie chart
+    search_engines, visibility_counts = fetch_search_visibility()
+
+    # Render admin dashboard template
+    return render_template('admin_dashboard.html', visitor_count=visitor_count, posts=posts, search_engines=search_engines, visibility_counts=visibility_counts)
+
 @app.route('/about')
 def about():
   return render_template('about.html')
@@ -170,11 +187,11 @@ def submit_contact():
 
 # Function to send email to admin
 def send_email(email, name, comment):
-    admin_email = 'admin@example.com'  # Replace with admin's email address
-    smtp_server = 'smtp.example.com'  # Replace with SMTP server address
+    admin_email = 'ssebugenyimaluufu@gmail.com'  # Replace with admin's email address
+    smtp_server = 'smtp.gmail.com'  # Replace with SMTP server address
     smtp_port = 587  # Replace with SMTP server port number
-    smtp_username = 'admin@example.com'  # Replace with SMTP server username
-    smtp_password = 'password'  # Replace with SMTP server password
+    smtp_username = 'ssebugenyimaluufu@gmail.com'  # Replace with SMTP server username
+    smtp_password = 'Ssebugenyijuma95'  # Replace with SMTP server password
 
     msg = EmailMessage()
     msg.set_content(f"Name: {name}\nEmail: {email}\n\nComment or Question:\n{comment}")

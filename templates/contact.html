@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>BF Suma - Contact Page</title>
-    <style>
-        /* Add your custom styles for the contact page here */
-    </style>
-</head>
-<body>
-    <h1>Contact Us</h1>
-    <form action="/submit_contact" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <label for="comment">Comment or Question:</label>
-        <textarea id="comment" name="comment" required></textarea>
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+{%extends "base.html"%}
+{% block content %}
+    <div class="flex-box">
+        <div class="flex-item">
+            <h1>Contact Us</h1>
+            <form action="/submit_contact" method="POST">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="comment">Comment or Question:</label>
+                <textarea id="comment" name="comment" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="flex-item">
+            <strong>Our coordinates on the maps are:-1.2869236329975215, 36.81340910066933</strong>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15955.250013216202!2d36.80881715913582!3d-1.2865589445643217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ske!4v1687358779040!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <h3>Our location is just behind Serena Hotel.Use the the above map to reach out to us.</h3>
+        </div>
+    </div>
+{%endblock%}
